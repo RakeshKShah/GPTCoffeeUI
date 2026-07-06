@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../../ui_test/helpers/execution-recorder.js";
-import { mockMenuApi } from "../../../../ui_test/helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 async function setupBuyerSession(page, { menuScenario = "default", ordersScenario = "empty", loginScenario = "buyer_success" } = {}) {
   await mockMenuApi(page, menuScenario);
@@ -72,7 +72,7 @@ async function loginAsBuyer(page, recorder) {
   await recorder.recordStep("Submit buyer login credentials");
   await page.getByLabel("Email").fill("buyer@gptcoffee.test");
   await page.getByLabel("Password").fill("buyer123");
-  await page.getByRole("button", { name: /^Login$/ }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await expect(page.getByRole("heading", { name: "Welcome, Maya Buyer" })).toBeVisible();
 }

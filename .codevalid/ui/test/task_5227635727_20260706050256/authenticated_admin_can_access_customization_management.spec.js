@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockMenuApi, mockAdminLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi, mockAdminLoginFlow } from "../../helpers/mock-api.js";
 
 test("Authenticated Administrator Can Access Drink Customization Management", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("authenticated_admin_can_access_customization_management", "Authenticated Administrator Can Access Drink Customization Management");
@@ -12,8 +12,8 @@ test("Authenticated Administrator Can Access Drink Customization Management", as
 
   await recorder.step("Authenticate as an administrator", async () => {
     await page.goto("/");
-    await page.getByRole("button", { name: /use sample admin/i }).click();
-    await page.getByRole("button", { name: /^Login$/ }).click();
+    await page.getByRole("button", { name: "Sample admin" }).click();
+    await page.locator("form").getByRole("button").last().click();
     await expect(page.getByText("Admin Dashboard")).toBeVisible();
   });
 

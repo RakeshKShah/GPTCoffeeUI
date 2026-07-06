@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockMenuApi } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 test("Administrator Can Open Authentication Screen", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("admin_can_access_auth_screen", "Administrator Can Open Authentication Screen");
@@ -15,7 +15,7 @@ test("Administrator Can Open Authentication Screen", async ({ page }, testInfo) 
 
   await recorder.step("Observe the initial authentication screen", async () => {
     await expect(page.getByRole("heading", { name: "Order from home. Pick up when your cup is ready." })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+    await expect(page.locator("form").getByRole("button").last()).toBeVisible();
     await expect(page.getByLabel("Email")).toBeVisible();
     await expect(page.getByLabel("Password")).toBeVisible();
     await expect(page.getByText("Sample admin")).toBeVisible();

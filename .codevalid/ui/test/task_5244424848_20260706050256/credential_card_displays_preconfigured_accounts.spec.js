@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockMenuApi } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 test("Display preconfigured buyer and administrator credentials", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("credential_card_displays_preconfigured_accounts", testInfo.title);

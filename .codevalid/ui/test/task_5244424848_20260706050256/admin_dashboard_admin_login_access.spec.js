@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockAdminLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockAdminLoginFlow } from "../../helpers/mock-api.js";
 
 test("Administrator Can Access Admin Dashboard", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("admin_dashboard_admin_login_access", testInfo);
@@ -21,7 +21,7 @@ test("Administrator Can Access Admin Dashboard", async ({ page }, testInfo) => {
   await expect(page.getByLabel("Password")).toHaveValue("admin123");
 
   await recorder.step("Submit the login form");
-  await page.getByRole("button", { name: "Login" }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Verify administrator functionality area associated with AdminDashboard is accessible");
   await expect(page.getByText("Admin Dashboard")).toBeVisible();

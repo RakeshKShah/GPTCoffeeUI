@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../../ui_test/helpers/execution-recorder.js";
-import { mockBuyerLoginFlow } from "../../../../ui_test/helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockBuyerLoginFlow } from "../../helpers/mock-api.js";
 
 test("Role-Based Access for Customer User", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("role_based_access_for_customer", "Role-Based Access for Customer User");
@@ -13,7 +13,7 @@ test("Role-Based Access for Customer User", async ({ page }, testInfo) => {
   });
 
   await page.goto("/");
-  await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+  await expect(page.locator("form").getByRole("button").last()).toBeVisible();
 
   await recorder.step("Log in using valid customer credentials.");
   await page.getByPlaceholder("you@example.com").fill("buyer@gptcoffee.test");

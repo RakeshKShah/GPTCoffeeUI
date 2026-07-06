@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockMenuApi } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 const adminUser = {
   id: "admin-new-1",
@@ -78,10 +78,10 @@ test("Administrator Account Creation and Authentication", async ({ page }, testI
 
   await recorder.step("Log out and log in again with the newly created administrator credentials");
   await page.getByRole("button", { name: "Logout" }).click();
-  await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+  await expect(page.locator("form").getByRole("button").last()).toBeVisible();
   await page.getByLabel("Email").fill("dana.admin@gptcoffee.test");
   await page.getByLabel("Password").fill("adminplus123");
-  await page.getByRole("button", { name: "Login" }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Confirm administrator management functionality remains accessible after login");
   await expect(page.getByText("Admin Dashboard")).toBeVisible();

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockMenuApi } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 const buyerUser = {
   id: "buyer-new-1",
@@ -58,10 +58,10 @@ test("Customer Account Creation and Authentication", async ({ page }, testInfo) 
 
   await recorder.step("Log out and log in again with the newly created customer credentials");
   await page.getByRole("button", { name: "Logout" }).click();
-  await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+  await expect(page.locator("form").getByRole("button").last()).toBeVisible();
   await page.getByLabel("Email").fill("casey.customer@gptcoffee.test");
   await page.getByLabel("Password").fill("caseyPass123");
-  await page.getByRole("button", { name: "Login" }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Confirm customer ordering functionality remains accessible after login");
   await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();

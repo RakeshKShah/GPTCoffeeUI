@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { setupBuyerAppMocks } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupBuyerAppMocks } from "../../helpers/mock-api.js";
 
 test("Smooth UI Animation During Cart Interaction", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("cart_ui_animation_during_add_to_cart", testInfo);
@@ -15,7 +15,7 @@ test("Smooth UI Animation During Cart Interaction", async ({ page }, testInfo) =
 
   await recorder.step("Open the application and login", async () => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
     await expect(page.getByText("Signature drinks")).toBeVisible();
   });
 

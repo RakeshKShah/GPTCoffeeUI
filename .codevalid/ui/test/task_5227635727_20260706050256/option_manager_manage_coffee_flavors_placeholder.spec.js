@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockAdminLoginFlow, mockMenuApi } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockAdminLoginFlow, mockMenuApi } from "../../helpers/mock-api.js";
 
 test("Administrator manages coffee flavors", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("option_manager_manage_coffee_flavors_placeholder", testInfo);
@@ -67,9 +67,9 @@ test("Administrator manages coffee flavors", async ({ page }, testInfo) => {
 
   await recorder.step("Open the admin dashboard.");
   await page.goto("/");
-  await page.getByPlaceholder("admin@gptcoffee.test").fill("admin@gptcoffee.test");
+  await page.getByLabel("Email").fill("admin@gptcoffee.test");
   await page.getByPlaceholder("••••••••").fill("admin123");
-  await page.getByRole("button", { name: /^log in$/i }).click();
+  await page.locator("form").getByRole("button").last().click();
   await expect(page.getByRole("heading", { name: "Coffee flavors" })).toBeVisible();
 
   await recorder.step("Add a new coffee flavor from the coffee flavor management area.");

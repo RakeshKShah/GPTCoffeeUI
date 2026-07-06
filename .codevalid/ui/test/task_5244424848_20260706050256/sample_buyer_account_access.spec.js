@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockBuyerLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockBuyerLoginFlow } from "../../helpers/mock-api.js";
 
 test("Preconfigured Sample Buyer Account Authentication", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("sample_buyer_account_access", testInfo);
@@ -20,7 +20,7 @@ test("Preconfigured Sample Buyer Account Authentication", async ({ page }, testI
   await expect(page.getByLabel("Password")).toHaveValue("buyer123");
 
   await recorder.step("Authenticate with the sample buyer credentials");
-  await page.getByRole("button", { name: "Login" }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Verify customer ordering functionality is accessible");
   await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();

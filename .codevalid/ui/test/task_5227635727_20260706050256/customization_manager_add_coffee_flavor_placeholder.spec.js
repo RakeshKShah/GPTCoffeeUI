@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockAdminLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockAdminLoginFlow } from "../../helpers/mock-api.js";
 
 async function mockScenario(page, method, endpointPath, response) {
   const escaped = endpointPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -88,7 +88,7 @@ test("Administrator can add a coffee flavor", async ({ page }, testInfo) => {
     await page.goto("/");
     await page.getByLabel("Email").fill("admin@gptcoffee.test");
     await page.getByLabel("Password").fill("admin123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
     await expect(page.getByRole("heading", { name: "Coffee flavors" })).toBeVisible();
   });
 
@@ -114,10 +114,10 @@ test("Administrator can add a coffee flavor", async ({ page }, testInfo) => {
     });
 
     await page.getByRole("button", { name: "Logout" }).click();
-    await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+    await expect(page.locator("form").getByRole("button").last()).toBeVisible();
 
     await page.getByRole("button", { name: "Sample buyer" }).click();
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
 
     await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();
     await expect(page.getByText(addedProduct.name)).toBeVisible();

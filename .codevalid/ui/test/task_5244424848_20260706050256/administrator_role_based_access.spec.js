@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockAdminLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockAdminLoginFlow } from "../../helpers/mock-api.js";
 
 test("Administrator Role Access Restriction", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("administrator_role_based_access", testInfo);
@@ -15,7 +15,7 @@ test("Administrator Role Access Restriction", async ({ page }, testInfo) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Sample admin" }).click();
   await expect(page.getByLabel("Email")).toHaveValue("admin@gptcoffee.test");
-  await page.getByRole("button", { name: "Login" }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Verify administrator management functionality is accessible");
   await expect(page.getByText("Admin Dashboard")).toBeVisible();

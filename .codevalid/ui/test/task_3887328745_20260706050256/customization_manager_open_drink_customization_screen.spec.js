@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../../../ui_test/helpers/execution-recorder.js";
-import { mockMenuApi } from "../../../../../ui_test/helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 async function mockBuyerSession(page) {
   await page.addInitScript(() => {

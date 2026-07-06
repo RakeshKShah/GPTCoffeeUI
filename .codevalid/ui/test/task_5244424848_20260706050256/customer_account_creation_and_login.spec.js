@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../../ui_test/helpers/execution-recorder.js";
-import { mockMenuApi, mockBuyerLoginFlow } from "../../../../ui_test/helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi, mockBuyerLoginFlow } from "../../helpers/mock-api.js";
 
 test("Customer Account Creation and Login", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("customer_account_creation_and_login", "Customer Account Creation and Login");
@@ -71,7 +71,7 @@ test("Customer Account Creation and Login", async ({ page }, testInfo) => {
 
   await recorder.step("Log out and log back in with the newly created customer credentials.");
   await page.getByRole("button", { name: /log out/i }).click();
-  await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+  await expect(page.locator("form").getByRole("button").last()).toBeVisible();
   await page.getByPlaceholder("you@example.com").fill("casey.customer@gptcoffee.test");
   await page.getByPlaceholder("••••••••").fill("brewpass123");
   await page.getByRole("button", { name: /^login$/i }).click();

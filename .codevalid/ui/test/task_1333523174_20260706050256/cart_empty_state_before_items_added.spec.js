@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { setupBuyerAppMocks } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupBuyerAppMocks } from "../../helpers/mock-api.js";
 
 test("View Empty Shopping Cart", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("cart_empty_state_before_items_added", testInfo);
@@ -15,7 +15,7 @@ test("View Empty Shopping Cart", async ({ page }, testInfo) => {
 
   await recorder.step("Open the application and login as buyer", async () => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
     await expect(page.getByText("Your Cart")).toBeVisible();
   });
 

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockAdminLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockAdminLoginFlow } from "../../helpers/mock-api.js";
 
 test("Preconfigured Sample Administrator Account Authentication", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("sample_administrator_account_access", testInfo);
@@ -19,7 +19,7 @@ test("Preconfigured Sample Administrator Account Authentication", async ({ page 
   await expect(page.getByLabel("Password")).toHaveValue("admin123");
 
   await recorder.step("Authenticate with the sample administrator credentials");
-  await page.getByRole("button", { name: "Login" }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Verify administrator management functionality is accessible");
   await expect(page.getByText("Admin Dashboard")).toBeVisible();

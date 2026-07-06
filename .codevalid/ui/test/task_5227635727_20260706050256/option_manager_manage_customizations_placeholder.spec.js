@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockAdminLoginFlow, mockMenuApi } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockAdminLoginFlow, mockMenuApi } from "../../helpers/mock-api.js";
 
 test("Administrator updates drink customization options", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("option_manager_manage_customizations_placeholder", testInfo);
@@ -41,9 +41,9 @@ test("Administrator updates drink customization options", async ({ page }, testI
 
   await recorder.step("Open the customization management area from the admin dashboard.");
   await page.goto("/");
-  await page.getByPlaceholder("admin@gptcoffee.test").fill("admin@gptcoffee.test");
+  await page.getByLabel("Email").fill("admin@gptcoffee.test");
   await page.getByPlaceholder("••••••••").fill("admin123");
-  await page.getByRole("button", { name: /^log in$/i }).click();
+  await page.locator("form").getByRole("button").last().click();
   await expect(page.getByRole("heading", { name: "Customization options" })).toBeVisible();
 
   await recorder.step("Modify drink customization options by adding a new size and a new extra.");

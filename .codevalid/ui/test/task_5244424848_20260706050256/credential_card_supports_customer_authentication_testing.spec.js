@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockBuyerLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockBuyerLoginFlow } from "../../helpers/mock-api.js";
 
 test("Use displayed buyer credentials for customer authentication", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("credential_card_supports_customer_authentication_testing", testInfo.title);
@@ -24,7 +24,7 @@ test("Use displayed buyer credentials for customer authentication", async ({ pag
   await expect(page.getByLabel("Password")).toHaveValue("buyer123");
 
   await recorder.step("Complete authentication by submitting the login form.");
-  await page.getByRole("button", { name: /^Login$/ }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Verify customer ordering functionality is accessible after authentication.");
   await expect(page.getByText("Signature drinks")).toBeVisible();

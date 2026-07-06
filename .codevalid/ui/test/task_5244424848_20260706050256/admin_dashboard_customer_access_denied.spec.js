@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockBuyerLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockBuyerLoginFlow } from "../../helpers/mock-api.js";
 
 test("Customer Cannot Access Admin Dashboard", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("admin_dashboard_customer_access_denied", testInfo);
@@ -22,7 +22,7 @@ test("Customer Cannot Access Admin Dashboard", async ({ page }, testInfo) => {
   await expect(page.getByLabel("Password")).toHaveValue("buyer123");
 
   await recorder.step("Submit the login form");
-  await page.getByRole("button", { name: "Login" }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Attempt to access administrator functionality and verify role-based access is denied");
   await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();

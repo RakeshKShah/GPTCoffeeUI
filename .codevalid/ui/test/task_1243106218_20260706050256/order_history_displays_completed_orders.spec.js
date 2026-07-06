@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../../ui_test/helpers/execution-recorder.js";
-import { mockMenuApi } from "../../../../ui_test/helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 async function mockJson(page, method, endpointPath, body, status = 200) {
   await page.route(new RegExp(`${endpointPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`), async (route) => {
@@ -86,10 +86,10 @@ test("Display Order History for Completed Orders", async ({ page }, testInfo) =>
 
   await recorder.step("Log in as administrator");
   await page.getByRole("button", { name: "Use admin credentials" }).click().catch(async () => {
-    await page.getByRole("button", { name: "Login" }).click({ trial: true }).catch(() => {});
+    await page.locator("form").getByRole("button").last().click({ trial: true }).catch(() => {});
     await page.getByPlaceholder("you@example.com").fill("admin@gptcoffee.test");
     await page.getByPlaceholder("••••••••").fill("admin123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
   });
 
   await recorder.step("Observe the displayed order history data");

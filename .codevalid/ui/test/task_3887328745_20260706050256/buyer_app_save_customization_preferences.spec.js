@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../../ui_test/helpers/execution-recorder.js";
-import { mockMenuApi } from "../../../../ui_test/helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 async function setupBuyerSession(page, { menuScenario = "default" } = {}) {
   await mockMenuApi(page, menuScenario);
@@ -78,7 +78,7 @@ async function loginAsBuyer(page, recorder) {
   await recorder.recordStep("Authenticate as a buyer");
   await page.getByLabel("Email").fill("buyer@gptcoffee.test");
   await page.getByLabel("Password").fill("buyer123");
-  await page.getByRole("button", { name: /^Login$/ }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();
 }

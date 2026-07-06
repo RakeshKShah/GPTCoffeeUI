@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../../ui_test/helpers/execution-recorder.js";
-import { mockAdminLoginFlow } from "../../../../ui_test/helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockAdminLoginFlow } from "../../helpers/mock-api.js";
 
 test("Authentication Using Preconfigured Sample Administrator Account", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("sample_admin_account_authentication", "Authentication Using Preconfigured Sample Administrator Account");

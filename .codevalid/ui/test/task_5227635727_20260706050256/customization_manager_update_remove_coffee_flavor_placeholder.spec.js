@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockAdminLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockAdminLoginFlow } from "../../helpers/mock-api.js";
 
 async function mockScenario(page, method, endpointPath, response) {
   const escaped = endpointPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -75,7 +75,7 @@ test("Administrator can update or remove an existing coffee flavor", async ({ pa
     await page.goto("/");
     await page.getByLabel("Email").fill("admin@gptcoffee.test");
     await page.getByLabel("Password").fill("admin123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
     await expect(page.getByRole("heading", { name: "Coffee flavors" })).toBeVisible();
   });
 
@@ -109,7 +109,7 @@ test("Administrator can update or remove an existing coffee flavor", async ({ pa
 
     await page.getByRole("button", { name: "Logout" }).click();
     await page.getByRole("button", { name: "Sample buyer" }).click();
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
 
     await expect(page.getByText(updatedProduct.name)).toBeVisible();
     await expect(page.getByText("Vanilla Cloud")).toHaveCount(0);

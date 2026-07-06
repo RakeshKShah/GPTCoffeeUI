@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../ui_test/helpers/execution-recorder.js";
-import { setupBuyerAppMocks } from "../../../ui_test/helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupBuyerAppMocks } from "../../helpers/mock-api.js";
 
 test("Render Product Details in ProductCard", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("product_card_renders_product_details", testInfo);
@@ -19,7 +19,7 @@ test("Render Product Details in ProductCard", async ({ page }, testInfo) => {
   });
 
   await recorder.step("Login as the sample buyer to reach the buyer application", async () => {
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
     await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();
   });
 

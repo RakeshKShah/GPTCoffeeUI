@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../../ui_test/helpers/execution-recorder.js";
-import { mockBuyerLoginFlow } from "../../../../ui_test/helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockBuyerLoginFlow } from "../../helpers/mock-api.js";
 
 test("Authentication Using Preconfigured Sample Buyer Account", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("sample_buyer_account_authentication", "Authentication Using Preconfigured Sample Buyer Account");

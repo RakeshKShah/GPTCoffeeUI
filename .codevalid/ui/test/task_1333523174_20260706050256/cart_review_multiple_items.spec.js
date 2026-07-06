@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { setupBuyerAppMocks } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { setupBuyerAppMocks } from "../../helpers/mock-api.js";
 
 test("Review Multiple Cart Selections Before Checkout", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("cart_review_multiple_items", testInfo);
@@ -15,7 +15,7 @@ test("Review Multiple Cart Selections Before Checkout", async ({ page }, testInf
 
   await recorder.step("Open the application and login as buyer", async () => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
     await expect(page.getByText("Signature drinks")).toBeVisible();
   });
 

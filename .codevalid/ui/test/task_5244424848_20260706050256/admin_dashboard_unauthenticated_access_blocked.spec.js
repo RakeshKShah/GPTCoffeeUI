@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockMenuApi } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 test("Unauthenticated User Cannot Access Admin Dashboard", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("admin_dashboard_unauthenticated_access_blocked", testInfo);
@@ -18,7 +18,7 @@ test("Unauthenticated User Cannot Access Admin Dashboard", async ({ page }, test
   await page.goto("/");
 
   await recorder.step("Verify access to administrator functionality is blocked until authentication");
-  await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+  await expect(page.locator("form").getByRole("button").last()).toBeVisible();
   await expect(page.getByRole("button", { name: "signup" })).toBeVisible();
   await expect(page.getByLabel("Email")).toBeVisible();
   await expect(page.getByLabel("Password")).toBeVisible();

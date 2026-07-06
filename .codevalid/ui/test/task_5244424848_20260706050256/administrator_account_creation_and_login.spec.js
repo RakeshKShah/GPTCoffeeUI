@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../../../../ui_test/helpers/execution-recorder.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
 
 test("Administrator Account Creation and Login", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("administrator_account_creation_and_login", "Administrator Account Creation and Login");

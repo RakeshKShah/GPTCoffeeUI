@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockAdminLoginFlow } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockAdminLoginFlow } from "../../helpers/mock-api.js";
 
 test("Administrator can access customization management functionality", async ({ page }, testInfo) => {
   const recorder = new ExecutionRecorder("customization_manager_admin_access_placeholder", "Administrator can access customization management functionality");
@@ -20,7 +20,7 @@ test("Administrator can access customization management functionality", async ({
   await recorder.step("Log in using administrator credentials", async () => {
     await page.getByLabel("Email").fill("admin@gptcoffee.test");
     await page.getByLabel("Password").fill("admin123");
-    await page.getByRole("button", { name: "Login" }).click();
+    await page.locator("form").getByRole("button").last().click();
   });
 
   await recorder.step("Navigate to the customization management area on the admin dashboard", async () => {

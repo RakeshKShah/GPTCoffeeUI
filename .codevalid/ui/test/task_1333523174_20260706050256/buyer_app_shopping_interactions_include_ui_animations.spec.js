@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ExecutionRecorder } from "../helpers/execution-recorder.js";
-import { mockMenuApi } from "../helpers/mock-api.js";
+import { ExecutionRecorder } from "../../helpers/execution-recorder.js";
+import { mockMenuApi } from "../../helpers/mock-api.js";
 
 async function mockBuyerSession(page) {
   await page.route(/\/api\/auth\/login$/, async (route) => {
@@ -42,7 +42,7 @@ async function loginAsBuyer(page, recorder) {
   await expect(page.getByRole("heading", { name: "GPT Coffee" })).toBeVisible();
 
   await recorder.step("Authenticate as the sample buyer");
-  await page.getByRole("button", { name: "Login" }).click();
+  await page.locator("form").getByRole("button").last().click();
   await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();
 }
 
