@@ -63,7 +63,7 @@ test("Shopping Cart Experience Includes Smooth UI Animations", async ({ page }, 
     await productCard.getByRole("button", { name: "Customize" }).click();
     await expect(page.getByRole("button", { name: "Close customization overlay" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Close customization" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Maple Cloud Brew" })).toBeVisible();
+    await expect(page.getByRole("complementary").getByRole("heading", { name: "Maple Cloud Brew" })).toBeVisible();
 
     await recorder.step("Interact with customization controls and add the item to the cart");
     await page.getByRole("button", { name: "Large" }).click();
@@ -72,7 +72,7 @@ test("Shopping Cart Experience Includes Smooth UI Animations", async ({ page }, 
 
     await recorder.step("Observe the UI response during the add-to-cart interaction");
     await expect(page.getByRole("heading", { name: "Pickup order" })).toBeVisible();
-    await expect(page.getByText("Maple Cloud Brew")).toBeVisible();
+    await expect(page.getByRole("paragraph").filter({ hasText: "Maple Cloud Brew" })).toBeVisible();
     await expect(page.getByText("1 x Large, Oat, Vanilla Sweet Foam")).toBeVisible();
 
     await recorder.step("Open and interact with the shopping cart interface without visual breakage");

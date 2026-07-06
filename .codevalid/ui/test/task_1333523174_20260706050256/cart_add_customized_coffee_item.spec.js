@@ -30,7 +30,7 @@ test("Add Customized Coffee Item to Cart", async ({ page }, testInfo) => {
       .filter({ has: page.getByRole("heading", { name: "Honey Oat Latte" }) });
     await expect(firstProductCard).toBeVisible();
     await firstProductCard.getByRole("button", { name: "Customize" }).click();
-    await expect(page.getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
+    await expect(page.getByRole("complementary").getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
     await expect(page.getByText("Cup Size")).toBeVisible();
   });
 
@@ -47,7 +47,7 @@ test("Add Customized Coffee Item to Cart", async ({ page }, testInfo) => {
   });
 
   await recorder.step("Review the shopping cart contents", async () => {
-    await expect(page.getByText("Honey Oat Latte")).toBeVisible();
+    await expect(page.getByRole("paragraph").filter({ hasText: "Honey Oat Latte" })).toBeVisible();
     await expect(page.getByText("1 x Large, Oat, Vanilla Sweet Foam, Cinnamon Dust")).toBeVisible();
     await expect(page.getByText("$8.55")).toBeVisible();
   });

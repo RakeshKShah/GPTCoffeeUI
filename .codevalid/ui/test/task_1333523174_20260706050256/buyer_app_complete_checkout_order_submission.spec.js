@@ -102,7 +102,7 @@ test("Complete Checkout and Submit Final Order", async ({ page }, testInfo) => {
     await recorder.step("Add at least one customized coffee item to the shopping cart");
     const honeyCard = page.locator("article").filter({ has: page.getByRole("heading", { name: "Honey Oat Latte" }) });
     await honeyCard.getByRole("button", { name: "Customize" }).click();
-    await expect(page.getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
+    await expect(page.getByRole("complementary").getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
     await page.getByRole("button", { name: "Large" }).click();
     await page.getByRole("button", { name: "Oat" }).click();
     await page.getByRole("button", { name: /Vanilla Sweet Foam/ }).click();
@@ -111,7 +111,7 @@ test("Complete Checkout and Submit Final Order", async ({ page }, testInfo) => {
 
     await recorder.step("Open the shopping cart and review the selected items");
     await expect(page.getByRole("heading", { name: "Pickup order" })).toBeVisible();
-    await expect(page.getByText("Honey Oat Latte")).toBeVisible();
+    await expect(page.getByRole("paragraph").filter({ hasText: "Honey Oat Latte" })).toBeVisible();
     await expect(page.getByText("1 x Large, Oat, Vanilla Sweet Foam, Cinnamon Dust")).toBeVisible();
 
     await recorder.step("Proceed to checkout and submit the final order");

@@ -39,9 +39,9 @@ test("Review Multiple Cart Selections Before Checkout", async ({ page }, testInf
 
   await recorder.step("Review the cart contents", async () => {
     await expect(page.getByRole("heading", { name: "Pickup order" })).toBeVisible();
-    await expect(page.getByText("Honey Oat Latte")).toBeVisible();
+    await expect(page.getByRole("paragraph").filter({ hasText: "Honey Oat Latte" })).toBeVisible();
     await expect(page.getByText("1 x Large, Oat, Vanilla Sweet Foam")).toBeVisible();
-    await expect(page.getByText("Midnight Mocha")).toBeVisible();
+    await expect(page.getByRole("paragraph").filter({ hasText: "Midnight Mocha" })).toBeVisible();
     await expect(page.getByText("1 x Small, Almond, Extra Shot")).toBeVisible();
     await expect(page.locator("span", { hasText: "2" }).first()).toBeVisible();
   });

@@ -89,7 +89,7 @@ test("Review Shopping Cart Selections Before Checkout", async ({ page }, testInf
     await recorder.step("Add a customized coffee item so the cart can be reviewed");
     const midnightCard = page.locator("article").filter({ has: page.getByRole("heading", { name: "Midnight Mocha" }) });
     await midnightCard.getByRole("button", { name: "Customize" }).click();
-    await expect(page.getByRole("heading", { name: "Midnight Mocha" })).toBeVisible();
+    await expect(page.getByRole("complementary").getByRole("heading", { name: "Midnight Mocha" })).toBeVisible();
     await page.getByRole("button", { name: "Small" }).click();
     await page.getByRole("button", { name: "Whole" }).click();
     await page.getByRole("button", { name: /Extra Shot/ }).click();
@@ -97,7 +97,7 @@ test("Review Shopping Cart Selections Before Checkout", async ({ page }, testInf
 
     await recorder.step("Open or review the shopping cart view");
     await expect(page.getByRole("heading", { name: "Pickup order" })).toBeVisible();
-    await expect(page.getByText("Midnight Mocha")).toBeVisible();
+    await expect(page.getByRole("paragraph").filter({ hasText: "Midnight Mocha" })).toBeVisible();
 
     await recorder.step("Review the listed coffee selections and applied customizations");
     await expect(page.getByText("1 x Small, Whole, Extra Shot")).toBeVisible();

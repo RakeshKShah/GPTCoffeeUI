@@ -107,7 +107,7 @@ test("Add Customized Coffee Item to Shopping Cart", async ({ page }, testInfo) =
     await honeyCard.getByRole("button", { name: "Customize" }).click();
 
     await recorder.step("Apply available customization options to the coffee item");
-    await expect(page.getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
+    await expect(page.getByRole("complementary").getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
     await page.getByRole("button", { name: "Large" }).click();
     await page.getByRole("button", { name: "Almond" }).click();
     await page.getByRole("button", { name: /Vanilla Sweet Foam/ }).click();
@@ -120,7 +120,7 @@ test("Add Customized Coffee Item to Shopping Cart", async ({ page }, testInfo) =
     await expect(page.getByRole("heading", { name: "Pickup order" })).toBeVisible();
 
     await recorder.step("Review the shopping cart");
-    await expect(page.getByText("Honey Oat Latte")).toBeVisible();
+    await expect(page.getByRole("paragraph").filter({ hasText: "Honey Oat Latte" })).toBeVisible();
     await expect(page.getByText("2 x Large, Almond, Vanilla Sweet Foam, Cinnamon Dust")).toBeVisible();
     await expect(page.getByText("Subtotal")).toBeVisible();
     await expect(page.getByRole("button", { name: "Checkout for pickup" })).toBeEnabled();

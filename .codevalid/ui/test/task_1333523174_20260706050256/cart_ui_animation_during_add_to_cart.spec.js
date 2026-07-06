@@ -24,13 +24,13 @@ test("Smooth UI Animation During Cart Interaction", async ({ page }, testInfo) =
     await productCard.getByRole("button", { name: "Customize" }).click();
     await expect(page.getByRole("button", { name: "Close customization overlay" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Close customization" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
+    await expect(page.getByRole("complementary").getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
   });
 
   await recorder.step("Add the item to the cart and verify animated cart state updates", async () => {
     await page.getByRole("button", { name: /Add to cart/i }).click();
     await expect(page.getByRole("heading", { name: "Pickup order" })).toBeVisible();
-    await expect(page.getByText("Honey Oat Latte")).toBeVisible();
+    await expect(page.getByRole("paragraph").filter({ hasText: "Honey Oat Latte" })).toBeVisible();
     await expect(page.locator("span", { hasText: "1" }).first()).toBeVisible();
   });
 
