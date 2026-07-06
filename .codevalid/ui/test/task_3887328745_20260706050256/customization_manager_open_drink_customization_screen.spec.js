@@ -49,11 +49,11 @@ test("Open drink customization screen from a coffee product", async ({ page }, t
   });
 
   await recorder.step("Verify the drink customization experience opens for the selected drink", async () => {
-    await expect(page.getByText("Customize")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
-    await expect(page.getByText("Cup Size")).toBeVisible();
-    await expect(page.getByText("Milk")).toBeVisible();
-    await expect(page.getByText("Finishing Touches")).toBeVisible();
+    await expect(page.getByText("Customize", { exact: true }).first()).toBeVisible();
+    await expect(page.locator("aside").getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
+    await expect(page.locator("aside").getByText("Cup Size")).toBeVisible();
+    await expect(page.locator("aside").getByRole("heading", { name: "Milk" })).toBeVisible();
+    await expect(page.locator("aside").getByText("Finishing Touches")).toBeVisible();
     await expect(page.getByRole("button", { name: "Add to cart" })).toBeVisible();
   });
 

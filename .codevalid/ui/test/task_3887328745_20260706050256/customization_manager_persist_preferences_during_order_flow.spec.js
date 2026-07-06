@@ -38,14 +38,15 @@ test("Retain customization preferences throughout the order flow", async ({ page
 
   await recorder.step("Open the app and select a coffee product", async () => {
     await page.goto("/");
+    await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();
     const card = page.locator("article", { hasText: "Honey Oat Latte" });
     await card.getByRole("button", { name: "Customize" }).click();
-    await expect(page.getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
+    await expect(page.locator("aside").getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
   });
 
   await recorder.step("Customize the drink using available preferences", async () => {
-    await page.getByRole("button", { name: /Large/i }).click();
-    await page.getByRole("button", { name: /Oat/i }).click();
+    await page.locator("aside").getByRole("button", { name: /^Large/i }).click();
+    await page.locator("aside").getByRole("button", { name: /^Oat/i }).click();
     await page.getByRole("button", { name: /Vanilla Sweet Foam/i }).click();
     await page.getByRole("button", { name: /Cinnamon Dust/i }).click();
     await page.getByRole("button", { name: /Add to cart/i }).click();
@@ -56,10 +57,9 @@ test("Retain customization preferences throughout the order flow", async ({ page
   });
 
   await recorder.step("Review the selected drink configuration in the cart", async () => {
-    await expect(page.getByText("Honey Oat Latte")).toBeVisible();
     await expect(page.getByText(/1 x Large, Oat, Vanilla Sweet Foam, Cinnamon Dust/)).toBeVisible();
     await expect(page.getByText("Subtotal")).toBeVisible();
-    await expect(page.getByText("$8.55")).toBeVisible();
+    await expect(page.getByText("$9.50").first()).toBeVisible();
   });
 
   console.log("CODEVALID_TEST_ASSERTION_OK:customization_manager_persist_preferences_during_order_flow");

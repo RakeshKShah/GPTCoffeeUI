@@ -63,11 +63,11 @@ test("buyer_app_open_drink_customization_screen", async ({ page }, testInfo) => 
   await expect(page.getByRole("button", { name: "Add to cart" })).toBeVisible();
 
   await recorder.recordStep("Verify that a drink customization screen is displayed");
-  await expect(page.getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
-  await expect(page.getByText("Cup Size")).toBeVisible();
-  await expect(page.getByText("Milk")).toBeVisible();
-  await expect(page.getByText("Finishing Touches")).toBeVisible();
-  await expect(page.getByRole("button", { name: "Close customization" })).toBeVisible();
+  await expect(page.locator("aside").getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
+  await expect(page.locator("aside").getByText("Cup Size")).toBeVisible();
+  await expect(page.locator("aside").getByRole("heading", { name: "Milk" })).toBeVisible();
+  await expect(page.locator("aside").getByText("Finishing Touches")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Close customization", exact: true })).toBeVisible();
 
   console.log("CODEVALID_TEST_ASSERTION_OK:buyer_app_open_drink_customization_screen");
   await recorder.save(testInfo);

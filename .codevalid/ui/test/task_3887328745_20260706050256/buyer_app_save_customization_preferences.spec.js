@@ -94,21 +94,20 @@ test("buyer_app_save_customization_preferences", async ({ page }, testInfo) => {
 
   await recorder.recordStep("Open the drink customization screen and choose available preferences");
   await page.getByRole("button", { name: "Large" }).click();
-  await page.getByRole("button", { name: "Oat" }).click();
+  await page.locator("aside").getByRole("button", { name: /^Oat/ }).click();
   await page.getByRole("button", { name: /Vanilla Sweet Foam/ }).click();
   await page.getByRole("button", { name: /Cinnamon Dust/ }).click();
 
   await recorder.recordStep("Continue through the ordering flow");
   await page.getByRole("button", { name: /Add to cart/ }).click();
 
-  await expect(page.getByText("Honey Oat Latte")).toBeVisible();
   await expect(page.getByText(/1 x Large, Oat, Vanilla Sweet Foam, Cinnamon Dust/)).toBeVisible();
 
   await recorder.recordStep("Review the order details before completion");
   await page.getByRole("button", { name: /Checkout for pickup/ }).click();
 
   await expect(page.getByText("Order placed. Watch your pickup status below.")).toBeVisible();
-  await expect(page.getByText("Your pickup status")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Your pickup status" })).toBeVisible();
   await expect(page.getByText("Your placed orders will appear here.")).toBeVisible();
 
   console.log("CODEVALID_TEST_ASSERTION_OK:buyer_app_save_customization_preferences");

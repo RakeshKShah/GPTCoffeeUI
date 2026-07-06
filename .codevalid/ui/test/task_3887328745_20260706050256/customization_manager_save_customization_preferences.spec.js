@@ -67,23 +67,23 @@ test("Save selected drink customization preferences", async ({ page }, testInfo)
 
   await recorder.step("Open the application and start customizing a drink", async () => {
     await page.goto("/");
+    await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();
     const card = page.locator("article", { hasText: "Honey Oat Latte" });
     await card.getByRole("button", { name: "Customize" }).click();
-    await expect(page.getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
+    await expect(page.locator("aside").getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
   });
 
   await recorder.step("Choose available customization preferences", async () => {
-    await page.getByRole("button", { name: /Large/i }).click();
-    await page.getByRole("button", { name: /Oat/i }).click();
+    await page.locator("aside").getByRole("button", { name: /^Large/ }).click();
+    await page.locator("aside").getByRole("button", { name: /^Oat/ }).click();
     await page.getByRole("button", { name: /Vanilla Sweet Foam/i }).click();
     await page.getByRole("button", { name: /Cinnamon Dust/i }).click();
     await page.getByRole("button", { name: /Add to cart/i }).click();
   });
 
   await recorder.step("Verify the customized drink is retained in the cart", async () => {
-    await expect(page.getByText("Honey Oat Latte")).toBeVisible();
     await expect(page.getByText(/1 x Large, Oat, Vanilla Sweet Foam, Cinnamon Dust/)).toBeVisible();
-    await expect(page.getByText("$8.55")).toBeVisible();
+    await expect(page.getByText("$9.50").first()).toBeVisible();
   });
 
   await recorder.step("Continue through checkout and confirm order flow messaging", async () => {

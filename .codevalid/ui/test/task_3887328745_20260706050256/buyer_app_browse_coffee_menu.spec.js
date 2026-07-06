@@ -68,10 +68,10 @@ test("buyer_app_browse_coffee_menu", async ({ page }, testInfo) => {
   await recorder.recordStep("Select a coffee product to continue toward ordering");
   await page.getByRole("heading", { name: "Honey Oat Latte" }).locator("..").locator("..").getByRole("button", { name: "Customize" }).click();
 
-  await expect(page.getByText("Customize")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
-  await expect(page.getByText("Cup Size")).toBeVisible();
-  await expect(page.getByText("Milk")).toBeVisible();
+  await expect(page.getByText("Customize", { exact: true }).first()).toBeVisible();
+  await expect(page.locator("aside").getByRole("heading", { name: "Honey Oat Latte" })).toBeVisible();
+  await expect(page.locator("aside").getByText("Cup Size")).toBeVisible();
+  await expect(page.locator("aside").getByRole("heading", { name: "Milk" })).toBeVisible();
 
   console.log("CODEVALID_TEST_ASSERTION_OK:buyer_app_browse_coffee_menu");
   await recorder.save(testInfo);

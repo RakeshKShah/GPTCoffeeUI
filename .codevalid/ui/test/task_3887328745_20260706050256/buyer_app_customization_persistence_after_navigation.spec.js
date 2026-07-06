@@ -61,7 +61,7 @@ test("buyer_app_customization_persistence_after_navigation", async ({ page }, te
 
   await recorder.recordStep("Select customization preferences");
   await page.getByRole("button", { name: "Large" }).click();
-  await page.getByRole("button", { name: "Oat" }).click();
+  await page.locator("aside").getByRole("button", { name: /^Oat/ }).click();
   await page.getByRole("button", { name: /Vanilla Sweet Foam/ }).click();
 
   await recorder.recordStep("Navigate forward in the order flow");
@@ -74,8 +74,8 @@ test("buyer_app_customization_persistence_after_navigation", async ({ page }, te
   await recorder.recordStep("Verify previously selected customization preferences remain visible during the order flow");
   await expect(page.getByRole("button", { name: /Add to cart/ })).toBeVisible();
   await expect(page.getByRole("button", { name: "Large" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Oat" })).toBeVisible();
-  await page.getByRole("button", { name: "Close customization" }).click();
+  await expect(page.locator("aside").getByRole("button", { name: /^Oat/ })).toBeVisible();
+  await page.getByRole("button", { name: "Close customization", exact: true }).click();
   await expect(page.getByText(/1 x Large, Oat, Vanilla Sweet Foam/)).toBeVisible();
 
   console.log("CODEVALID_TEST_ASSERTION_OK:buyer_app_customization_persistence_after_navigation");
