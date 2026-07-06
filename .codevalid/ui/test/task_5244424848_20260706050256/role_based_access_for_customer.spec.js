@@ -18,7 +18,7 @@ test("Role-Based Access for Customer User", async ({ page }, testInfo) => {
   await recorder.step("Log in using valid customer credentials.");
   await page.getByPlaceholder("you@example.com").fill("buyer@gptcoffee.test");
   await page.getByPlaceholder("••••••••").fill("buyer123");
-  await page.getByRole("button", { name: /^login$/i }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Observe the functionality available after authentication.");
   await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();

@@ -58,7 +58,7 @@ test("Customer Account Creation and Login", async ({ page }, testInfo) => {
   await expect(page.getByRole("heading", { name: /order from home\. pick up when your cup is ready\./i })).toBeVisible();
 
   await recorder.step("Select signup flow and enter valid customer registration details.");
-  await page.getByRole("button", { name: "Signup" }).click();
+  await page.getByRole("button", { name: "signup" }).click();
   await page.getByPlaceholder("Your name").fill("Casey Customer");
   await page.getByPlaceholder("you@example.com").fill("casey.customer@gptcoffee.test");
   await page.getByPlaceholder("••••••••").fill("brewpass123");
@@ -70,11 +70,11 @@ test("Customer Account Creation and Login", async ({ page }, testInfo) => {
   await expect(page.getByText("Admin Dashboard")).toHaveCount(0);
 
   await recorder.step("Log out and log back in with the newly created customer credentials.");
-  await page.getByRole("button", { name: /log out/i }).click();
+  await page.getByRole("button", { name: "Logout" }).click();
   await expect(page.locator("form").getByRole("button").last()).toBeVisible();
   await page.getByPlaceholder("you@example.com").fill("casey.customer@gptcoffee.test");
   await page.getByPlaceholder("••••••••").fill("brewpass123");
-  await page.getByRole("button", { name: /^login$/i }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Observe the authenticated customer experience.");
   await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();

@@ -21,7 +21,7 @@ test("Authentication Using Preconfigured Sample Administrator Account", async ({
   await page.getByPlaceholder("••••••••").fill("admin123");
 
   await recorder.step("Submit the login form.");
-  await page.getByRole("button", { name: /^login$/i }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Observe the authenticated administrator experience.");
   await expect(page.getByText("Admin Dashboard")).toBeVisible();

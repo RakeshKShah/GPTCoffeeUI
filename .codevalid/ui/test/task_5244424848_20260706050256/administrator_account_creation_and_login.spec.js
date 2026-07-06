@@ -82,10 +82,10 @@ test("Administrator Account Creation and Login", async ({ page }, testInfo) => {
   });
 
   await page.goto("/");
-  await expect(page.getByRole("button", { name: "Signup" })).toBeVisible();
+  await expect(page.locator("form").getByRole("button").last()).toBeVisible();
 
   await recorder.step("Select account creation flow and enter valid administrator registration information.");
-  await page.getByRole("button", { name: "Signup" }).click();
+  await page.getByRole("button", { name: "signup" }).click();
   await page.getByPlaceholder("Your name").fill("Dana Admin");
   await page.getByPlaceholder("you@example.com").fill("dana.admin@gptcoffee.test");
   await page.getByPlaceholder("••••••••").fill("adminplus123");
@@ -97,10 +97,10 @@ test("Administrator Account Creation and Login", async ({ page }, testInfo) => {
   await expect(page.getByText("Signature drinks")).toHaveCount(0);
 
   await recorder.step("Log out and log in again with the newly created administrator credentials.");
-  await page.getByRole("button", { name: /log out/i }).click();
+  await page.getByRole("button", { name: "Logout" }).click();
   await page.getByPlaceholder("you@example.com").fill("dana.admin@gptcoffee.test");
   await page.getByPlaceholder("••••••••").fill("adminplus123");
-  await page.getByRole("button", { name: /^login$/i }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Observe the authenticated administrator experience.");
   await expect(page.getByText("Admin Dashboard")).toBeVisible();

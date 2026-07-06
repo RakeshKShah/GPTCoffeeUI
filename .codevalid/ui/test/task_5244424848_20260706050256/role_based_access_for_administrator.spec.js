@@ -17,7 +17,7 @@ test("Role-Based Access for Administrator User", async ({ page }, testInfo) => {
   await recorder.step("Log in using valid administrator credentials.");
   await page.getByPlaceholder("you@example.com").fill("admin@gptcoffee.test");
   await page.getByPlaceholder("••••••••").fill("admin123");
-  await page.getByRole("button", { name: /^login$/i }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Observe the functionality available after authentication.");
   await expect(page.getByText("Admin Dashboard")).toBeVisible();

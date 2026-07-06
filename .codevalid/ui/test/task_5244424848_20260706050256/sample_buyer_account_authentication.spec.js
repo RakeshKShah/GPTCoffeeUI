@@ -22,7 +22,7 @@ test("Authentication Using Preconfigured Sample Buyer Account", async ({ page },
   await page.getByPlaceholder("••••••••").fill("buyer123");
 
   await recorder.step("Submit the login form.");
-  await page.getByRole("button", { name: /^login$/i }).click();
+  await page.locator("form").getByRole("button").last().click();
 
   await recorder.step("Observe the authenticated buyer experience.");
   await expect(page.getByRole("heading", { name: "Signature drinks" })).toBeVisible();
